@@ -22,7 +22,9 @@ function getC() {
 // ただし Promise チェイン(then関数の結果に対するthen関数の呼び出し)を一度は用いて実装をすること
 
 getA().then((a) => {
-  return getB().then((b) => { return a * b; });
-}).then((ab) => {
-  getC().then((c) => { console.log(ab * c); });
+  return getB().then((b) => { return Promise.all([a, b]); });
+}).then((arr) => {
+  return getC().then((c) => { arr.push(c); return Promise.all(arr); });
+}).then((arr) => {
+  console.log( arr.reduce((a,b) => {return a*b}) );
 });
