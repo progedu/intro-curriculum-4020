@@ -23,7 +23,5 @@ function getC() {
 getA().then((a) => {
   return getB().then((b) => { return a * b; });
 }).then((ab) => {
-  return getC().then((c) => { return ab * c; });
-}).then((abc) => {
-  console.log(abc);
+  return getC().then((c) => { console.log(ab * c); });
 })
