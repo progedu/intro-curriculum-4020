@@ -30,7 +30,7 @@ getA().then((result_a) => {//getA()が終わったら
   });
 });
 
-//returnを使ったバージョン、スコープの関係で前の関数の結果は消える。毎回計算して結果をreturnで渡していく
+//returnを使ったバージョン、スコープの関係で前の関数の結果は消える。毎回計算して結果をreturnで渡していく?
 getA().then((result_a) => {
   return getB().then((result_b) => {　//無名関数の結果をgetB().then()の結果としてreturn
     return result_a * result_b; //無名関数の結果をreturn
@@ -42,3 +42,35 @@ getA().then((result_a) => {
 }).then((result_a_x_b_x_c) => {//getC().then()の結果が入ってる
   console.log('with return:' + result_a_x_b_x_c);
 });
+
+//Promise Allを使って3つの関数を並行処理するパターン
+const promises = [];
+const promise_a = getA().then((result) => { return result; });
+const promise_b = getB().then((result) => { return result; });
+const promise_c = getC().then((result) => { return result; });
+promises.push(promise_a);
+promises.push(promise_b);
+promises.push(promise_c);
+
+Promise.all(promises).then((results) => {
+  let answer = 1;
+  results.forEach((value) => {
+    answer = answer * value;
+  });
+  console.log('promise.all:' + answer);
+});
+
+//直接pushするバージョン。やっぱ読みにくいかも
+const promises1 = [];
+promises1.push(getA().then((result) => { return result; }));
+promises1.push(getB().then((result) => { return result; }));
+promises1.push(getC().then((result) => { return result; }));
+
+Promise.all(promises1).then((results) => {
+  let answer = 1;
+  results.forEach((value) => {
+    answer = answer * value;
+  });
+  console.log('promise.all:' + answer);
+});
+
