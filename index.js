@@ -20,3 +20,28 @@ function getC() {
 
 // TODO ここに getA, getB, getC で得られる結果をかけあわせた結果 2431 を標準出力するコードを記述する
 // ただし Promise チェイン(then関数の結果に対するthen関数の呼び出し)を一度は用いて実装をすること
+
+new Promise((resolve) => {
+  resolve(1);
+}).then((v1) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(v1 * 11);
+    }, 1000);
+  });
+}).then((v2) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(v2 * 13);
+    }, 1000);
+  });
+}).then((v3) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(v3 * 17);
+    }, 1000);
+  });
+}).then((v3) => {
+  console.log(v3);
+});
+
