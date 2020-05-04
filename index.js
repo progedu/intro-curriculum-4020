@@ -18,5 +18,18 @@ function getC() {
   });
 }
 
-// TODO ここに getA, getB, getC で得られる結果をかけあわせた結果 2431 を標準出力するコードを記述する
-// ただし Promise チェイン(then関数の結果に対するthen関数の呼び出し)を一度は用いて実装をすること
+// 以下、練習問題の実装
+let numberA;
+let numberB;
+let numberC;
+
+const number = getA().then((a) => {
+  numberA = a;
+  return getB();
+}).then((b) => {
+  numberB = b;
+  return getC();
+}).then((c) => {
+  numberC = c;
+  console.log(numberA * numberB * numberC);
+})
