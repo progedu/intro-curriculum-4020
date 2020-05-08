@@ -1,5 +1,18 @@
 'use strict';
 
+getA()
+  .then(a => {
+    return getB().then(b => {
+      return a * b;
+    });
+  })
+  .then(ab => {
+    getC().then(c => {
+      console.log(ab * c);  
+    });
+  });
+
+
 function getA() {
   return new Promise((resolve) => {
     setTimeout(() => { resolve(11); }, 1000);
