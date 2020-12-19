@@ -20,3 +20,31 @@ function getC() {
 
 // TODO ここに getA, getB, getC で得られる結果をかけあわせた結果 2431 を標準出力するコードを記述する
 // ただし Promise チェイン(then関数の結果に対するthen関数の呼び出し)を一度は用いて実装をすること
+
+// 例に倣った場合
+getA()
+.then(a => {
+  return getB().then(b => {
+    return a * b;
+  });
+})
+.then(result => {
+  getC().then(c => {
+    console.log(result * c);
+  });
+});
+
+// Promise.all を使った場合　
+Promise.all([getA(), getB(), getC()]).then(results => {
+  console.log(results[0] * results[1] * results[2]);
+});
+
+// async/await を使った場合
+async function total() {
+  const a = await getA();
+  const b = await getB();
+  const c = await getC();
+  console.log(a * b * c);
+}
+
+total();
