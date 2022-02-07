@@ -1,5 +1,27 @@
 'use strict';
 
+getA().then(a => {
+  return getB().then(b => {
+    return a * b;
+  });
+}).then(ab => {
+  getC().then(c => {
+    console.log(ab * c);
+  });
+});
+
+Promise.all([getA(), getB(), getC()]).then(arr => {
+  let result = arr[0] * arr[1] * arr[2];
+  console.log(result);
+});
+
+getA().then(async a => {
+  const b = await getB();
+  const c = await getC();
+  console.log(a * b * c);
+})
+
+
 function getA() {
   return new Promise((resolve) => {
     setTimeout(() => { resolve(11); }, 1000);
